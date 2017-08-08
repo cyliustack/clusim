@@ -1,6 +1,6 @@
 # Introduction
-CLUSIM : A Fast and Scalable Trace-Driven Network Simulator  
-Author Cheng-Yueh Liu, Po-Yao Huang 
+CLUSIM: A Fast and Scalable Trace-Driven Cluster Simulator  
+Authors: Cheng-Yueh Liu, Po-Yao Huang 
 
 # Prerequisite
 
