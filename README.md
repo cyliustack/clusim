@@ -1,5 +1,5 @@
 # Introduction
-CLUSIM: A Fast and Scalable Trace-Driven Cluster Simulator  
+CLUSIM: A Fast and Scalable Trace-Driven Computer Cluster Simulator  
 Authors: Cheng-Yueh Liu, Po-Yao Huang 
 
 # Prerequisite
@@ -18,9 +18,11 @@ sudo systemctl enable docker
 sudo systemctl start docker
 ```
 
-## 2. Collect Network Traces from Docker Network Interface
+## 2. Empower Linux Users with tcpdump Tracing on Docker Network Interface
+
 ```
-tcpdump -i docker0 -w demo.pcap
+./empower-tcpdump.sh username
+tcpdump -i docker0 -w justForTest.pcap
 ```
 
 ## 3. Lauch a Docker-based Virtual Cluster and Run a MPI-application
@@ -29,10 +31,10 @@ cd clusim/vcluster
 docker build -t vcluster .
 ./start-vcluster.sh 4 0
 ```
-Then, we will log in to master node through ssh 
+Then, we will log in to master node (node0) 
 ```
-cd /root
-./demo.sh
+cd ~
+~/demo.sh
 ```
 ### Snapshot of Demo 
 ![Alt text](demo/mpi-nas-bt.png)
