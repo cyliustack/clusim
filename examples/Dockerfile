@@ -14,11 +14,18 @@ EXPOSE 22
 RUN echo -e  'y\n'| ssh-keygen -N ''  -f /root/.ssh/id_rsa
 RUN echo "root" > /root/password.txt 
 RUN cat /root/password.txt 
-RUN cd /root && git clone https://github.com/cyliustack/sofa 
 RUN cd /root && git clone https://github.com/cyliustack/benchmark 
-RUN cd /root && git clone https://github.com/cyliustack/easybuild
 RUN cp /root/benchmark/tools/ssh_copy_id_to_all.sh /root/
-
+RUN wget http://www.mpich.org/static/downloads/3.2/mpich-3.2.tar.gz
+RUN tar -xvf mpich-3.2.tar.gz
+RUN cd mpich-3.2 && ./configure --disable-fortran --prefix=/opt/mpich && make -j4 && make install
+RUN cd /root/benchmark/mpi/gemm && make
+RUN echo export PATH=/opt/mpich/bin:$PATH >> ~/.bashrc
+RUN echo export LD_LIBRARY_PATH=/opt/mpich/lib:$LD_LIBRARY_PATH >> ~/.bashrc
+RUN echo "    StrictHostKeyChecking no" >> /etc/ssh/ssh_config
+RUN cp /root/benchmark/mpi/tools/demo.sh /root
+ENTRYPOINT service ssh restart && bash
+#RUN service ssh start
 #RUN 
 CMD ["/usr/sbin/sshd", "-D"]
 
