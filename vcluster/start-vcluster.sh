@@ -33,12 +33,14 @@ fi
 num_nodes=$1
 master_node_id=$2
 print_misc "Bash version ${BASH_VERSION}."
- 
+
 print_info "./start-slaves.sh ${num_nodes}"
 ./start-slaves.sh ${num_nodes} 
 print_info "Done"
 
+tcpdump -w vcluster.pcap -i docker0 2> /dev/null  & 
+
 print_info "./start-master.sh"
 ./start-master.sh ${master_node_id}
-print_info "Done"
-
+print_info "Virtual cluster is normally closed."
+pkill tcpdump
