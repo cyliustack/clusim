@@ -23,17 +23,16 @@ sudo systemctl start docker
 tcpdump -i docker0 -w demo.pcap
 ```
 
-## 3. Lauch a Docker Cluster and Run a MPI-application
+## 3. Lauch a Docker-based Virtual Cluster and Run a MPI-application
 ```
-cd clusim/examples
-Download hpc_node.tar :  https://drive.google.com/file/d/0BwfK93g2BHz7N0FBRG9SQU1sMlE/view?usp=sharing    
-sudo cat hpc_node.tar | sudo docker import - hpc/node 
+cd clusim/vcluster
+docker build -t vcluster .
 ./start-vcluster.sh 4 0
 ```
-Then, we will log in to master node,  
+Then, we will log in to master node through ssh 
 ```
-./genhosts.txt 4
-mpirun -f hosts.txt -n 4 ~/bt.A.4
+cd /root
+./demo.sh
 ```
 ### Snapshot of Demo 
 ![Alt text](demo/mpi-nas-bt.png)
