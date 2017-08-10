@@ -22,6 +22,7 @@ RUN cd mpich-3.2 && ./configure --disable-fortran --prefix=/opt/mpich && make -j
 RUN cd /root/benchmark/mpi/gemm && make
 RUN echo export PATH=/opt/mpich/bin:$PATH >> ~/.bashrc
 RUN echo export LD_LIBRARY_PATH=/opt/mpich/lib:$LD_LIBRARY_PATH >> ~/.bashrc
+RUN echo "    StrictHostKeyChecking no" >> /etc/ssh/ssh_config
 RUN cp /root/benchmark/mpi/tools/demo.sh /root
 #RUN 
 CMD ["/usr/sbin/sshd", "-D"]
