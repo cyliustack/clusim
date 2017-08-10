@@ -24,6 +24,7 @@ RUN echo export PATH=/opt/mpich/bin:$PATH >> ~/.bashrc
 RUN echo export LD_LIBRARY_PATH=/opt/mpich/lib:$LD_LIBRARY_PATH >> ~/.bashrc
 RUN echo "    StrictHostKeyChecking no" >> /etc/ssh/ssh_config
 RUN cp /root/benchmark/mpi/tools/demo.sh /root
+
 #RUN 
 CMD ["/usr/sbin/sshd", "-D"]
 
