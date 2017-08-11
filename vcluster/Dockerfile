@@ -1,6 +1,6 @@
 FROM ubuntu:16.04
-
-RUN apt-get update && apt-get install -y openssh-server sshpass gcc g++ make  iputils-ping git vim wget
+MAINTAINER Cheng-Yueh Liu <cyliustack@gmail.com>
+RUN apt-get update && apt-get install -y openssh-server sshpass gcc g++ make  iputils-ping git vim wget gfortran
 RUN mkdir /var/run/sshd
 RUN echo 'root:root' | chpasswd
 RUN sed -i 's/PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
@@ -18,7 +18,7 @@ RUN cd /root && git clone https://github.com/cyliustack/benchmark
 RUN cp /root/benchmark/tools/ssh_copy_id_to_all.sh /root/
 RUN wget http://www.mpich.org/static/downloads/3.2/mpich-3.2.tar.gz
 RUN tar -xvf mpich-3.2.tar.gz
-RUN cd mpich-3.2 && ./configure --disable-fortran --prefix=/opt/mpich && make -j4 && make install
+RUN cd mpich-3.2 && ./configure --prefix=/opt/mpich && make -j4 && make install
 RUN cd /root/benchmark/mpi/gemm && make
 RUN echo export PATH=/opt/mpich/bin:$PATH >> ~/.bashrc
 RUN echo export LD_LIBRARY_PATH=/opt/mpich/lib:$LD_LIBRARY_PATH >> ~/.bashrc
