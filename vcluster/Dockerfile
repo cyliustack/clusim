@@ -1,6 +1,6 @@
 FROM ubuntu:16.04
 MAINTAINER Cheng-Yueh Liu <cyliustack@gmail.com>
-RUN apt-get update && apt-get install -y openssh-server sshpass gcc g++ make  iputils-ping git vim wget gfortran
+RUN apt-get update && apt-get install -y openssh-server sshpass gcc g++ make  iputils-ping git vim wget gfortran iperf
 RUN mkdir /var/run/sshd
 RUN echo 'root:root' | chpasswd
 RUN sed -i 's/PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
@@ -27,6 +27,7 @@ RUN cp /root/benchmark/mpi/tools/demo.sh /root
 
 #RUN 
 CMD ["/usr/sbin/sshd", "-D"]
+
 
 
 

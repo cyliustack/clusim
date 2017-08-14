@@ -125,11 +125,13 @@ void ns3_simulate(auto& pcapfile, auto const parameter)
     auto const packets = pcapfile.packets;
     NetworkSimulation ns;
     ns.init(pcapfile, parameter);
-
+    uint64_t total_payloads=0;
     for (auto& packet : packets) {
         uint32_t phase_id = (int)((packet.timestamp - pcapfile.min_wct) / ns.parameter.window_size);
         ns.phases[phase_id].total_payloads += packet.payload;
+        total_payloads += packet.payload;
     }
+    printf("Total payload = %u\n",total_payloads);
 }
 
 //void star(uint32_t* leaf_nodes, double phase_data[][col], double phase_data_a[][col], double* final_real, int* phase_data_a_number, int i, bool* lock, double window_info[][col])
