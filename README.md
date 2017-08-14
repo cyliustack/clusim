@@ -64,5 +64,6 @@ Modify the path to the logged pcap file in simple.cfg
 ```
 cd clusim  
 make 
+cp config/default.cfg .
 ./clusim default.cfg 
 ```
