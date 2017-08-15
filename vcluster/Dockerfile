@@ -21,6 +21,7 @@ RUN tar -xvf mpich-3.2.tar.gz
 RUN cd mpich-3.2 && ./configure --prefix=/opt/mpich && make -j4 && make install
 RUN cd /root/benchmark/mpi/gemm && make
 RUN echo export PATH=/opt/mpich/bin:$PATH >> ~/.bashrc
+RUN echo export export TERM=xterm >> ~/.bashrc
 RUN echo export LD_LIBRARY_PATH=/opt/mpich/lib:$LD_LIBRARY_PATH >> ~/.bashrc
 RUN echo "    StrictHostKeyChecking no" >> /etc/ssh/ssh_config
 RUN cp /root/benchmark/mpi/tools/demo.sh /root
