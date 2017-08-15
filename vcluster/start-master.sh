@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 C_NONE="\033[0m"
 C_CYAN="\033[36m"
 C_RED="\033[31m"
@@ -27,16 +27,12 @@ print_warning() {
 
 if [[ "$1" == "" ]]
 then
-    print_error "Usage: ./start-slaves.sh NumOfSlaves"
+    print_error "Usage: ./start-master.sh master_nid"
     exit -1
 fi 
-
-
+master_nid=$1
 #print_misc "Bash version ${BASH_VERSION}."
-
 #echo -e "${C_CYAN} Bash version ${BASH_VERSION}. ${C_NONE}"
-for ((i = 0; i <= $1-1; i++)); do
-    print_info "Lauch $i-th container..."
-    sudo docker run -d -p 9000-9900:22 --privileged --name="node$i" vcluster
-done
+print_info "Execute bash on master container at node${master_nid}:"
+    sudo docker exec -it node${master_nid} bash 
 print_info "Done."

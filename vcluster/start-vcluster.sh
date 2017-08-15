@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 C_NONE="\033[0m"
 C_CYAN="\033[36m"
 C_RED="\033[31m"
@@ -26,7 +26,7 @@ print_warning() {
 }
 if [[ "$1" == "" ]] || [[ "$2" == "" ]]
 then
-    print_error "Usage: ./restart-vcluster.sh NumOfNodes MasterNodeID"
+    print_error "Usage: ./start-vcluster.sh NumOfNodes MasterNodeID"
     exit -1
 fi 
 
@@ -34,10 +34,13 @@ num_nodes=$1
 master_node_id=$2
 print_misc "Bash version ${BASH_VERSION}."
 
-print_info "./stop-vcluster.sh"
-./stop-vcluster.sh
+print_info "./start-slaves.sh ${num_nodes}"
+./start-slaves.sh ${num_nodes} 
 print_info "Done"
 
-print_info "./start-vcluster.sh ${num_nodes} ${master_node_id}"
-./start-vcluster.sh ${num_nodes} ${master_node_id}
-print_info "Done"
+tcpdump -w vcluster.pcap -i docker0 2> /dev/null  & 
+
+print_info "./start-master.sh"
+./start-master.sh ${master_node_id}
+print_info "Virtual cluster is normally closed."
+pkill tcpdump

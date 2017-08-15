@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 C_NONE="\033[0m"
 C_CYAN="\033[36m"
 C_RED="\033[31m"
@@ -25,14 +25,9 @@ print_warning() {
     echo -e "${C_ORANGE} $1 ${C_NONE}"
 }
 
-if [[ "$1" == "" ]]
-then
-    print_error "Usage: ./start-master.sh master_nid"
-    exit -1
-fi 
-master_nid=$1
 #print_misc "Bash version ${BASH_VERSION}."
-#echo -e "${C_CYAN} Bash version ${BASH_VERSION}. ${C_NONE}"
-print_info "Execute bash on master container at node${master_nid}:"
-    sudo docker exec -it node${master_nid} bash 
-print_info "Done."
+
+print_info "===== Docker-Image Information ====="
+sudo docker images -a 
+print_info "===== Docker-Container Information ====="
+sudo docker ps -a

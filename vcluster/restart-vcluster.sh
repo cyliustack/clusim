@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 C_NONE="\033[0m"
 C_CYAN="\033[36m"
 C_RED="\033[31m"
@@ -24,17 +24,20 @@ print_error() {
 print_warning() {
     echo -e "${C_ORANGE} $1 ${C_NONE}"
 }
+if [[ "$1" == "" ]] || [[ "$2" == "" ]]
+then
+    print_error "Usage: ./restart-vcluster.sh NumOfNodes MasterNodeID"
+    exit -1
+fi 
 
+num_nodes=$1
+master_node_id=$2
 print_misc "Bash version ${BASH_VERSION}."
 
-if [[ "$1" == ""  ]]; then
-        print_warning "Usage: ./update-vcluster.sh path-to-newer-container-snapshot(a tar file)"
-    exit -1
-else
-    print_info "Removing old image..."
-    sudo docker rmi hpc/node
-    print_info "Importing new image..."
-    sudo cat $1 | sudo docker import - hpc/node
-    print_info "Done."
-fi
+print_info "./stop-vcluster.sh"
+./stop-vcluster.sh
+print_info "Done"
 
+print_info "./start-vcluster.sh ${num_nodes} ${master_node_id}"
+./start-vcluster.sh ${num_nodes} ${master_node_id}
+print_info "Done"
