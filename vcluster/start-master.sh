@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 C_NONE="\033[0m"
 C_CYAN="\033[36m"
 C_RED="\033[31m"
