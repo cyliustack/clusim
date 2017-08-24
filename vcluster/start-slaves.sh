@@ -37,6 +37,6 @@ fi
 #echo -e "${C_CYAN} Bash version ${BASH_VERSION}. ${C_NONE}"
 for ((i = 0; i <= $1-1; i++)); do
     print_info "Lauch $i-th container..."
-    sudo docker run -d -p 9000-9900:22 --privileged --name="node$i" vcluster
+    sudo docker run -d -p 9000-9900:22 --privileged --name="node$i" --hostname="node$i" vcluster
 done
 print_info "Done."
