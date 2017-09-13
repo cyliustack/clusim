@@ -8,7 +8,7 @@ Executing TensorFlow on the CLUSIM.
  `sudo yum install docker`
 
 
-# How To Execute a Simple MPI Application on Virtual Container Cluster
+# How To Execute a Simple TensorFlow training on Virtual Container Cluster
  ## 1. Setup Docker
  ```
  sudo systemctl enable docker
