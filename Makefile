@@ -6,7 +6,7 @@ C_BLUE=$(shell echo -e "\033[34m")
 C_PURPLE=$(shell echo -e "\033[35m")
 C_CYAN=$(shell echo -e "\033[36m")
 C_LIGHT_GRAY=$(shell echo -e "\033[37m")
-INC_FLAGS := -I./include -I./ns3/ns-3.26/build
+INC_FLAGS := -I./include -I/opt/ns3/
 TARGET := clusim
 OBJS := main.o
 LIB_USER := 
@@ -14,7 +14,7 @@ LIB_USER_OBJS :=
 OPTIONS := -g -std=c++14 -W -Wunused-variable 
 CFLAGS := $(OPTIONS) $(INC_FLAGS)
 CXXFLAGS := $(OPTIONS) $(INC_FLAGS)
-NS3_LINKFLAGS := -L./ns3/ns-3.26/build \
+NS3_LINKFLAGS := -L/opt/ns3 \
 					-lns3.26-stats-debug \
 					-lns3.26-aodv-debug \
 					-lns3.26-nix-vector-routing-debug \
@@ -33,7 +33,6 @@ NS3_LINKFLAGS := -L./ns3/ns-3.26/build \
 					-lns3.26-netanim-debug \
 					-lns3.26-mpi-debug \
 					-lns3.26-wifi-debug \
-					-lns3.26-wifi-test-debug \
 					-lns3.26-propagation-debug \
 					-lns3.26-energy-debug \
 					-lns3.26-mobility-debug \
@@ -47,7 +46,7 @@ NS3_LINKFLAGS := -L./ns3/ns-3.26/build \
 					-lns3.26-wimax-debug \
 					-lns3.26-uan-debug
 
-RUN_ENV := LD_LIBRARY_PATH=./ns3/ns-3.26/build:$LD_LIBRARY_PATH
+RUN_ENV := LD_LIBRARY_PATH=/opt/ns3:$LD_LIBRARY_PATH
 
 LINKFLAGS := -lconfig++ -lpcap $(NS3_LINKFLAGS)
 CC := gcc
@@ -66,6 +65,7 @@ $(LIB_USER):	$(LIB_USER_OBJS)
 %.o	:	%.cpp ../include/ppacket.hpp
 	@$(CXX) -c -fPIC $(CXXFLAGS) $< -o $@
 	@echo -e "$(C_GREEN)CXX	$@$(C_NONE)"
+
 run: $(TARGET)
 #	export LD_LIBRARY_PATH=../ns3/ns-3.26/build:$LD_LIBRARY_PATH	
 	echo "run!"
