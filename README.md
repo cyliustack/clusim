@@ -46,7 +46,7 @@ Step I:
 cd clusim
 wget http://www.nsnam.org/release/ns-allinone-3.26.tar.bz2   
 tar xjf ns-allinone-3.26.tar.bz2   
-ln -s ns-allinone-3.26 ns3   
+ln -s ns-allinone-3.26/ns-3.26/build ns3   
 
 Step II:     
 cd ns3   
