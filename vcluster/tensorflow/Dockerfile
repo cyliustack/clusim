@@ -32,6 +32,8 @@ RUN cd /root && git clone https://github.com/tensorflow/benchmarks.git Tensorflo
 RUN wget https://raw.githubusercontent.com/softDi/clusim/master/vcluster/tensorflow/TFdemo.sh
 RUN chmod +x TFdemo.sh
 RUN cd /root && wget https://raw.githubusercontent.com/softDi/clusim/master/vcluster/tensorflow/demo.sh && chmod +x demo.sh
+RUN wget https://raw.githubusercontent.com/softDi/clusim/master/vcluster/tensorflow/TF8nodes.sh
+RUN chmod +x TF8nodes.sh
 #install java and bazel (optional)
 #RUN apt-get update && apt-get upgrade -y && apt-get install -y  software-properties-common && add-apt-repository ppa:webupd8team/java -y && apt-get update && echo oracle-java7-installer shared/accepted-oracle-license-v1-1 select true | /usr/bin/debconf-set-selections && apt-get install -y oracle-java8-installer && apt-get clean
 #RUN echo "deb [arch=amd64] http://storage.googleapis.com/bazel-apt stable jdk1.8" |  tee /etc/apt/sources.list.d/bazel.list
