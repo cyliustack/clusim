@@ -1,0 +1,21 @@
+28a29,32
+> #include <ostream>
+> #include <stdint.h>
+> 
+> #define colo 500
+87a92,99
+>   double GetSimTime () const;
+>    
+>   double GetSimTime (int i) const;
+>    
+>   Address GetAddress (int i)const; 
+>  
+>   int GetIdNumber() const;  
+> 
+130a143,148
+>   double          m_simtime[colo];
+>   uint16_t        m_port[colo];
+> 
+>   int             flow_id;
+>   bool            m_lock;
+>   Address         m_address[colo];
