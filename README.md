@@ -40,23 +40,10 @@ cd ~ && ./demo.sh
 
 
 
-## 4. Download, Build and Test NS-3
+## 4. Build NS-3
 ```
-Step I:  
-cd clusim
-wget http://www.nsnam.org/release/ns-allinone-3.26.tar.bz2   
-tar xjf ns-allinone-3.26.tar.bz2   
-ln -s ns-allinone-3.26/ns-3.26/build ns3   
-
-Step II:     
-cd ns3   
-./build.py --enable-examples --enable-tests   
-
-Step III:      
-cd ns-3.26   
-./waf --run hello-simulator   
-cp examples/tutorial/first.cc scratch/myfirst.cc   
-./waf --run scratch/myfirst   
+cd clusim/ns3
+./build.py 
 ```
 
 ## 5. Using Clusim to Simulate and Analyze Network Performance

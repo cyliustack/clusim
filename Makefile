@@ -6,7 +6,8 @@ C_BLUE=$(shell echo -e "\033[34m")
 C_PURPLE=$(shell echo -e "\033[35m")
 C_CYAN=$(shell echo -e "\033[36m")
 C_LIGHT_GRAY=$(shell echo -e "\033[37m")
-INC_FLAGS := -I./include -I./ns3/
+NS3_BUILD :=  ./ns3/ns-3.26/build
+INC_FLAGS := -I./include -I${NS3_BUILD}
 TARGET := clusim
 OBJS := main.o
 LIB_USER := 
@@ -14,7 +15,7 @@ LIB_USER_OBJS :=
 OPTIONS := -g -std=c++14 -W -Wunused-variable 
 CFLAGS := $(OPTIONS) $(INC_FLAGS)
 CXXFLAGS := $(OPTIONS) $(INC_FLAGS)
-NS3_LINKFLAGS := -L./ns3\
+NS3_LINKFLAGS := -L./${NS3_BUILD}\
 					-lns3.26-stats-debug \
 					-lns3.26-aodv-debug \
 					-lns3.26-nix-vector-routing-debug \
@@ -46,7 +47,7 @@ NS3_LINKFLAGS := -L./ns3\
 					-lns3.26-wimax-debug \
 					-lns3.26-uan-debug
 
-RUN_ENV := LD_LIBRARY_PATH=./ns3:$LD_LIBRARY_PATH
+RUN_ENV := LD_LIBRARY_PATH=./${NS3_BUILD}:$LD_LIBRARY_PATH
 
 LINKFLAGS := -lconfig++ -lpcap $(NS3_LINKFLAGS)
 all	: $(TARGET) $(LIB_USER)
