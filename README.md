@@ -21,7 +21,8 @@ sudo systemctl start docker
 ## 2. Empower Linux Users with tcpdump Tracing on Docker Network Interface
 
 ```
-./empower-tcpdump.sh username
+cd clusim
+./tools/empower-tcpdump.sh username
 tcpdump -i docker0 -w justForTest.pcap
 ```
 
@@ -33,7 +34,7 @@ docker build -t vcluster .
 ```
 Then, we will log in to master node (node0) 
 ```
-cd ~ && ./demo.sh
+cd ~ && ./demo-npb.sh
 ```
 ### Snapshot of Demo 
 ![Alt text](demo/mpi-nas-bt.png)
