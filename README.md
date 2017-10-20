@@ -34,7 +34,7 @@ docker build -t vcluster .
 ```
 Then, we will log in to master node (node0) 
 ```
-cd ~ && ./demo-npb.sh
+cd ~ && ./demo-npb.sh bt A 4
 ```
 ### Snapshot of Demo 
 ![Alt text](demo/mpi-nas-bt.png)
