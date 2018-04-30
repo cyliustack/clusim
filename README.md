@@ -8,7 +8,8 @@ Authors: Cheng-Yueh Liu, Po-Yao Huang, Yuan-Di Li
 `sudo apt-get install docker.io` 
 
 ## CentOS 7
-`sudo yum install docker`
+`wget https://download.docker.com/linux/centos/7/x86_64/stable/Packages/docker-ce-18.03.1.ce-1.el7.centos.x86_64.rpm`
+`sudo yum install docker-ce-18.03.1.ce-1.el7.centos.x86_64.rpm`
 
 
 # How To Execute a Simple MPI Application on Virtual Container Cluster
