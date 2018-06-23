@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<domain type='kvm'>
+    <name>%VMNAME%</name>
+    <uuid>%UUID%</uuid>
+    <memory>1000000</memory>
+    <currentMemory>1000000</currentMemory>
+    <vcpu>2</vcpu>
+    <os>
+        <type arch='x86_64' machine='pc'>hvm</type>
+        <boot dev='hd'/>
+    </os> 
+    <bootmenu enable='no'/>
+    <on_poweroff>destroy</on_poweroff>
+    <on_reboot>restart</on_reboot>
+    <on_crash>restart</on_crash>
+    <devices>
+        <serial type='pty'>
+            <target port='0'/>
+        </serial>
+        <emulator>/usr/bin/qemu-system-x86_64</emulator>
+        <disk type='file' device='disk'>
+            <source file='%VMIMAGE%'/>
+            <target dev='hda'/>
+        </disk>
+        <graphics type='vnc' port='%VNCPORT%' autoport='yes' listen='0.0.0.0' keymap='en-us'> 
+            <listen type='address' address='0.0.0.0'/>
+        </graphics> 
+        <interface type='network'>
+            <source network='default'/>
+            <target dev='%NETDEV%'/>
+            <mac address='%MAC%'/>
+        </interface>
+        <interface type='network'>
+            <source network='isolated'/>
+            <mac address='%ISOMAC%'/>
+        </interface>
+    </devices>
+</domain>
