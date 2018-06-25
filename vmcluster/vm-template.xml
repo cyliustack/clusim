@@ -19,8 +19,9 @@
         </serial>
         <emulator>/usr/bin/qemu-system-x86_64</emulator>
         <disk type='file' device='disk'>
+            <driver name='qemu' type='qcow2'/>
             <source file='%VMIMAGE%'/>
-            <target dev='hda'/>
+            <target dev='sda' bus='ide'/>
         </disk>
         <graphics type='vnc' port='%VNCPORT%' autoport='yes' listen='0.0.0.0' keymap='en-us'> 
             <listen type='address' address='0.0.0.0'/>
