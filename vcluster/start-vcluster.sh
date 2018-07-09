@@ -38,7 +38,7 @@ print_info "./start-slaves.sh ${num_nodes}"
 ./start-slaves.sh ${num_nodes} 
 print_info "Done"
 
-tcpdump -w vcluster.pcap -i docker0 2> /dev/null  & 
+tcpdump -w vcluster.pcap -i docker0 -v tcp 2> /dev/null  & 
 
 print_info "./start-master.sh"
 ./start-master.sh ${master_node_id}
