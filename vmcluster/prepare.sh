@@ -1,9 +1,15 @@
 #!/bin/bash
-if [[ $(which yum) ]]  ; then
-    yum install qemu-kvm qemu-img virt-manager libvirt tigervnc
-elif [[ $(which apt) ]] ; then
-    apt-get install qemu-kvm qemu-img virt-manager libvirt
+WITH_SUDO=""
+if [[ $(which sudo) ]]; then 
+    WITH_SUDO="sudo" 
 fi
-systemctl start libvirtd
-systemctl enable libvirtd
+
+
+if [[ $(which yum) ]]  ; then
+    $WITH_SUDO yum install -y qemu-kvm qemu-img virt-manager libvirt tigervnc sshpass 
+elif [[ $(which apt) ]] ; then
+    $WITH_SUDO apt-get install -y qemu-kvm qemu-img virt-manager libvirt sshpass
+fi
+$WITH_SUDO systemctl start libvirtd
+$WITH_SUDO systemctl enable libvirtd
 

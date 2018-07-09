@@ -2,7 +2,7 @@
     <name>default</name>
     <forward dev='enp0s31f6' mode='nat'/>
     <bridge name='virbr0' stp='on' delay='0' /> 
-    <ip address='10.0.1.1' netmask='255.255.255.0'>
+    <ip address='172.17.0.1' netmask='255.255.255.0'>
         <dhcp>
             <range start='%IP_ADDR_BEGIN%' end='%IP_ADDR_END%' />
         </dhcp>

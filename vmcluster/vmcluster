@@ -12,19 +12,13 @@ import subprocess
 import uuid 
 
 def vmcluster_destroy(num_vm):
-
     for i in range(num_vm):
         subprocess.call('sudo virsh destroy clusim' + str(i), shell=True)
         subprocess.call('sudo virsh detach-interface --domain clusim%d --type network --config --live'%i, shell=True)
-        #subprocess.call('sudo brctl delif %s tap%d'%(bridge_name,i), shell=True)
-        #subprocess.call('sudo ip link set dev tap%d down'%i, shell=True)
-        #subprocess.call('sudo ip link del tap%d'%i, shell=True)
-        #subprocess.call('sudo ip link set dev %s down'%(bridge_name), shell=True)
-        #subprocess.call('sudo brctl delbr %s'%bridge_name, shell=True)
         subprocess.call('sudo virsh net-destroy default', shell=True)
         subprocess.call('sudo virsh net-destroy isolated', shell=True)
-        subprocess.call('sudo virsh list --all', shell=True)
-        subprocess.call('sudo virsh net-list --all', shell=True)
+    subprocess.call('sudo virsh list --all', shell=True)
+    subprocess.call('sudo virsh net-list --all', shell=True)
 
 
 if __name__ == "__main__":
@@ -58,7 +52,7 @@ if __name__ == "__main__":
         'command',
         type=str,
         nargs=1,
-        metavar='<create|start|stop|destroy|attach|update-image>')
+        metavar='<create|destroy|login|update-image>')
 
     parser.add_argument(
         '--base_image',
@@ -94,7 +88,7 @@ if __name__ == "__main__":
         print('create virtual bridge and network interfaces ...')
         vmcluster_destroy(num_vm) 
   
-        subprocess.call('cp net-default.xml clusim-vlan.xml', shell=True )
+        subprocess.call('cp net-template.xml clusim-vlan.xml', shell=True )
         subprocess.call('sed -i -- \'s/%IP_ADDR_BEGIN%/' + str(ip_addr_begin) + '/g\' clusim-vlan.xml', shell=True)
         subprocess.call('sed -i -- \'s/%IP_ADDR_END%/' + str(ip_addr_end) + '/g\' clusim-vlan.xml', shell=True)
 
@@ -140,10 +134,6 @@ if __name__ == "__main__":
                 break
         subprocess.call('sudo virsh list --all', shell=True)
         subprocess.call('sudo virsh net-list --all', shell=True)
-    elif command == 'start':
-        print('start virtual machines ...')
-        for i in range(num_vm):
-            subprocess.call('sudo virsh start clusim' + str(i), shell=True)
     elif command == 'destroy':
         print('destroy virtual machines ...')
         vmcluster_destroy(num_vm) 

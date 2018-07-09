@@ -3,8 +3,8 @@
     <name>%VMNAME%</name>
     <uuid>%UUID%</uuid>
     <memory>1000000</memory>
-    <currentMemory>1000000</currentMemory>
-    <vcpu>2</vcpu>
+    <currentMemory>2000000</currentMemory>
+    <vcpu>4</vcpu>
     <os>
         <type arch='x86_64' machine='pc'>hvm</type>
         <boot dev='hd'/>
