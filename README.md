@@ -37,22 +37,22 @@ docker build -t vcluster .
 Then, we will log in to master node (node0) 
 ```
 cd ~ && ./demo-npb.sh bt A 4
+exit 
 ```
 ### Option2: VM Cluster
 Download the prebuilt ubuntu 16.04 image (url:"https://drive.google.com/open?id=1-xM6ZJ-q4Y9OxPwe6NDh9Yv6aKlJ7b-n"), and place it at /image/ as /image/ubuntu1604.img 
 ```
 cd clusim/vmcluster
-./vmcluster create --num_vm=4
+./vmcluster update-image
+./start-vcluster.sh 4 0
+``` 
+Then, we will log in to clusim0 whose ip is 172.17.0.2 
 ```
-Then, we need to log in to master node whose ip is 172.17.0.2 and password is clusim 
-```
-ssh clusim@172.17.0.2
 ./demo-npb.sh bt A 4
+exit
 ```
 ### Snapshot of Demo 
 ![Alt text](demo/mpi-nas-bt.png)
-
-
 
 ## 4. Build NS-3
 ```
