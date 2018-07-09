@@ -30,9 +30,12 @@ def vmcluster_destroy(num_vm):
 if __name__ == "__main__":
 
     logdir = './sofalog/'
+    base_image = 'ubuntu1604.img'
     command = None
     num_vm = 4
     bridge_name = 'br100'
+    verbose = False 
+    edit_only = False
     
     print("Your Python version is %s.%s.%s" % sys.version_info[:3])
     if sys.version_info < (3,6) :
@@ -49,12 +52,20 @@ if __name__ == "__main__":
     parser.add_argument('--num_vm', metavar='N', type=int, required=False,
                         help='number of virtual machines in a virtual cluster')
     parser.add_argument('--verbose', dest='verbose', action='store_true')
+    parser.add_argument('--edit_only', dest='edit_only', action='store_true')
     parser.set_defaults(verbose=False)
     parser.add_argument(
         'command',
         type=str,
         nargs=1,
-        metavar='<create|start|stop|destroy|attach>')
+        metavar='<create|start|stop|destroy|attach|update-image>')
+
+    parser.add_argument(
+        '--base_image',
+        metavar='just_name_of_base_image.img',
+        type=str,
+        required=False,
+        help='path to the base image')
 
     args = parser.parse_args()
     if args.logdir is not None:
@@ -65,11 +76,19 @@ if __name__ == "__main__":
 
     if args.num_vm is not None:
         num_vm = args.num_vm
-    
+
+    if args.base_image is not None:
+        base_image = args.base_image
+
+    if args.edit_only is not None:
+        edit_only = args.edit_only
+
+
+   
     print("logdir = %s" % logdir)
 
-    ip_addr_begin = '10.0.1.2' 
-    ip_addr_end = '10.0.1.' + str(2+num_vm-1)   
+    ip_addr_begin = '172.17.0.2' 
+    ip_addr_end = '172.17.0.' + str(2+num_vm-1)   
     
     if command == 'create':
         print('create virtual bridge and network interfaces ...')
@@ -95,8 +114,13 @@ if __name__ == "__main__":
 
         print('create %d virtual machines ...'%num_vm)
         for i in range(num_vm):
+            #path_to_image = '\\/image\\/debian8.img'
+            if edit_only:
+                path_to_image = '\\/image\\/%s'%base_image
+            else:
+                path_to_image = '\\/image\\/vm' + str(i) +'.img'
+            #path_to_image = '\\/image\\/debian8_vm' + str(i) +'.img'
             vncport = 5900 + i
-            path_to_image = '\\/image\\/debian8_vm' + str(i) + '.img'
             mac_addr = '00:16:3e:1a:b3:%02x'%(i+1) 
             isomac_addr = '00:17:3e:1a:b3:%02x'%(i+1) 
             subprocess.call('cp vm-template.xml clusim.xml', shell=True )
@@ -112,6 +136,8 @@ if __name__ == "__main__":
             subprocess.call('sudo virsh create clusim.xml', shell=True)
             # Virtual Network
             subprocess.call('sudo virsh domiflist clusim%d'%i, shell=True)
+            if edit_only:
+                break
         subprocess.call('sudo virsh list --all', shell=True)
         subprocess.call('sudo virsh net-list --all', shell=True)
     elif command == 'start':
@@ -124,6 +150,9 @@ if __name__ == "__main__":
     elif command == 'show':
         subprocess.call('sudo virsh list --all', shell=True)
         subprocess.call('sudo virsh net-list --all', shell=True)
+    elif command == 'update-image':
+        for i in range(num_vm):
+            subprocess.call('cp -f /image/%s /image/vm%d.img'%(base_image,i), shell=True)
     else:
         print("Cannot recognized vmcluster command [%s]" % command)
         quit()
