@@ -49,3 +49,7 @@ make
 cp config/default.cfg .
 ./clusim default.cfg 
 ----
+
+== Publication
+
+[1] C.Y. Liu, P.Y. Huang, C.H. Tu and S.H. Hung, "A Fast and Scalable Cluster Simulator for Network Performance Projection of HPC Applications," 2018 International Conference on High Performance Computing & Simulation (HPCS), 2018, pp. 970-977, doi: 10.1109/HPCS.2018.00153.
