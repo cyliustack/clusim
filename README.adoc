@@ -1,0 +1,51 @@
+# Introduction
+CLUSIM: A Fast and Scalable Trace-Driven Computer Cluster Simulator  
+Authors: Cheng-Yueh Liu, Po-Yao Huang, Yuan-Di Li 
+
+# Prerequisite
+
+= How To Execute a Simple MPI Application on Virtual Container Cluster
+
+== 2. Empower Linux Users with tcpdump Tracing on Docker Network Interface
+
+== 3. Lauch a Virtual Cluster and Run a MPI-application
+
+=== Create a single VM installing a MPI application
+
+----
+go run clusim-vm-create.go -i image_name
+go run clusim-vm-run.go -i image_name
+go run clusim-vm-cpnnect.go -i image_name
+----
+
+=== VM Cluster
+
+Download the prebuilt ubuntu 16.04 image (url:"https://drive.google.com/open?id=1-xM6ZJ-q4Y9OxPwe6NDh9Yv6aKlJ7b-n"), and place it at /image/ as /image/ubuntu1604.img 
+----
+cd clusim/vmcluster
+./vmcluster update-image
+./start-vcluster.sh 4 0
+----
+Then, we will log in to clusim0 whose ip is 172.17.0.2 
+----
+./demo-npb.sh bt A 4
+exit
+----
+
+=== Snapshot of Demo 
+image::demo/mpi-nas-bt.png[] 
+
+=== 4. Build NS-3
+----
+cd clusim/ns3
+./build.py 
+----
+
+=== 5. Using Clusim to Simulate and Analyze Network Performance
+Modify the path to the logged pcap file in simple.cfg  
+----
+cd clusim  
+make 
+cp config/default.cfg .
+./clusim default.cfg 
+----
