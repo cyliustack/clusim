@@ -4,12 +4,11 @@ Authors: Cheng-Yueh Liu, Po-Yao Huang, Yuan-Di Li
 
 This repo shows how to execute a simple MPI Application on virtual cluster.
 
-== 1. Create a single VM installing a MPI application
+== 1. Create a single VM
 
 ----
-go run clusim-vm-create.go -i image_name
-go run clusim-vm-run.go -i image_name
-go run clusim-vm-cpnnect.go -i image_name
+$ ./vm-create.sh
+$ ./vm-run.sh
 ----
 
 == 2. Lauch a Virtual Cluster and Run a MPI-application
